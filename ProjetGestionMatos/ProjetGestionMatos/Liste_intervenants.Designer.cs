@@ -34,18 +34,19 @@
             System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
             System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
             this.listView1 = new System.Windows.Forms.ListView();
-            this.label1 = new System.Windows.Forms.Label();
             this.Nom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Prenom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Date_anciennete = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Ville = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Date_anciennete = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Vérifié = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Admin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listView1
@@ -77,17 +78,6 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
-                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(236, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(301, 31);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Liste des intervenants";
-            // 
             // Nom
             // 
             this.Nom.Text = "Nom";
@@ -98,15 +88,15 @@
             this.Prenom.Text = "Prenom";
             this.Prenom.Width = 81;
             // 
-            // Date_anciennete
-            // 
-            this.Date_anciennete.Text = "Date_anciennete";
-            this.Date_anciennete.Width = 140;
-            // 
             // Ville
             // 
             this.Ville.Text = "Ville";
             this.Ville.Width = 95;
+            // 
+            // Date_anciennete
+            // 
+            this.Date_anciennete.Text = "Date_anciennete";
+            this.Date_anciennete.Width = 140;
             // 
             // Vérifié
             // 
@@ -116,6 +106,17 @@
             // 
             this.Admin.Text = "Administrateur";
             this.Admin.Width = 81;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(236, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(301, 31);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Liste des intervenants";
             // 
             // button1
             // 
@@ -160,7 +161,7 @@
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(289, 406);
+            this.button5.Location = new System.Drawing.Point(423, 406);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(161, 32);
             this.button5.TabIndex = 6;
@@ -168,12 +169,23 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(107, 406);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(209, 32);
+            this.button6.TabIndex = 7;
+            this.button6.Text = "Donner le statut intervenant";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
             // Liste_intervenants
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -204,5 +216,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }

@@ -64,7 +64,7 @@ namespace ProjetGestionMatos
 
                     erreur.Text = "Votre demande d'inscription à bien été effectué !";
                     erreur.Visible = true;
-                    MessageBox.Show("Votre inscription à bien été transmise, vous devez maintenant attendre sa validation par l'administrateur !");
+                    MessageBox.Show("Votre inscription à bien été transmise, vous devez maintenant attendre sa validation par un administrateur !");
                 }
             }
         }

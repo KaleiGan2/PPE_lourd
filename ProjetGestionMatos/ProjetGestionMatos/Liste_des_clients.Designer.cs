@@ -259,6 +259,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "Liste_des_clients";
             this.Text = "Liste_des_clients";
+            this.Load += new System.EventHandler(this.Liste_des_clients_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

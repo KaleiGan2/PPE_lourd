@@ -133,5 +133,10 @@ namespace ProjetGestionMatos
             menu.Show();
             this.Close();
         }
+
+        private void Liste_des_clients_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

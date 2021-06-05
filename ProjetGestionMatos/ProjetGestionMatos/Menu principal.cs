@@ -17,7 +17,6 @@ namespace ProjetGestionMatos
         {
             InitializeComponent();
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             Programmer_une_intervention form = new Programmer_une_intervention();
@@ -27,7 +26,7 @@ namespace ProjetGestionMatos
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -39,7 +38,9 @@ namespace ProjetGestionMatos
 
         private void Menu_principal_Load(object sender, EventArgs e)
         {
-
+           // Page_de_connexion f = new Page_de_connexion();
+            label2.Text = Page_de_connexion.nom_int;
+            label5.Text = Page_de_connexion.prenom_int;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -65,6 +66,11 @@ namespace ProjetGestionMatos
             this.Close();
             Liste_intervenants f = new Liste_intervenants();
             f.Show();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

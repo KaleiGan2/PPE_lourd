@@ -47,6 +47,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.ID_intervenant = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listView1
@@ -58,7 +59,8 @@
             this.Ville,
             this.Date_anciennete,
             this.Vérifié,
-            this.Admin});
+            this.Admin,
+            this.ID_intervenant});
             this.listView1.HideSelection = false;
             listViewItem1.StateImageIndex = 0;
             listViewItem2.StateImageIndex = 0;
@@ -77,6 +79,7 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // Nom
             // 
@@ -105,7 +108,7 @@
             // Admin
             // 
             this.Admin.Text = "Administrateur";
-            this.Admin.Width = 81;
+            this.Admin.Width = 83;
             // 
             // label1
             // 
@@ -137,6 +140,7 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "Supprimer l\'intervenant";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -179,6 +183,10 @@
             this.button6.Text = "Donner le statut intervenant";
             this.button6.UseVisualStyleBackColor = true;
             // 
+            // ID_intervenant
+            // 
+            this.ID_intervenant.Text = "ID_intervenant";
+            // 
             // Liste_intervenants
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,5 +225,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.ColumnHeader ID_intervenant;
     }
 }

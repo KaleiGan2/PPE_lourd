@@ -41,6 +41,12 @@ namespace ProjetGestionMatos
            // Page_de_connexion f = new Page_de_connexion();
             label2.Text = Page_de_connexion.nom_int;
             label5.Text = Page_de_connexion.prenom_int;
+
+            if (Page_de_connexion.admin_int == 0)
+            {
+                button5.Visible = false;
+                button6.Visible = false;
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -52,6 +58,7 @@ namespace ProjetGestionMatos
 
         private void button6_Click(object sender, EventArgs e)
         {
+            
             SqlConnection con = new SqlConnection();
             con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
             con.Open();

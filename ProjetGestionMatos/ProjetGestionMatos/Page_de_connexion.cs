@@ -18,6 +18,7 @@ namespace ProjetGestionMatos
         public static string prenom_int;
         public static int admin_int;
         public static int id_int;
+        public static string nom_statut;
         public Page_de_connexion()
         {
             InitializeComponent();
@@ -71,7 +72,7 @@ namespace ProjetGestionMatos
                     else
                     {
                         read2.Close();
-                        string req3 = "SELECT Nom, Prenom, Administrateur, ID_intervenant FROM Intervenant WHERE LOGIN = '" + strLogin + "' AND Password = '" + strMDP + "'";
+                        string req3 = "SELECT i.Nom, i.Prenom, i.Administrateur, i.ID_intervenant, s.Nom_statut FROM Intervenant i, Statut s WHERE i.Administrateur = s.ID_stats AND LOGIN = '" + strLogin + "' AND Password = '" + strMDP + "'";
                         SqlCommand cmd3 = new SqlCommand(req3, con);
                         SqlDataReader read3 = cmd3.ExecuteReader();
                         if (read3.Read())
@@ -80,6 +81,7 @@ namespace ProjetGestionMatos
                             prenom_int = read3[1].ToString();
                             admin_int = Convert.ToInt32(read3[2]);
                             id_int = Convert.ToInt32(read3[3]);
+                            nom_statut = read3[4].ToString();
                             // MessageBox.Show("Nom : " + nom_int + " :");
                             this.Hide();
                             Menu_principal menu;

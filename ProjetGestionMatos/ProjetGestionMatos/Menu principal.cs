@@ -41,6 +41,7 @@ namespace ProjetGestionMatos
            // Page_de_connexion f = new Page_de_connexion();
             label2.Text = Page_de_connexion.nom_int;
             label5.Text = Page_de_connexion.prenom_int;
+            label7.Text = Page_de_connexion.nom_statut;
 
             if (Page_de_connexion.admin_int == 0)
             {
@@ -76,6 +77,11 @@ namespace ProjetGestionMatos
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }

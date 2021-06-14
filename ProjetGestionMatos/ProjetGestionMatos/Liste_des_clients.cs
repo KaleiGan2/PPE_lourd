@@ -20,21 +20,28 @@ namespace ProjetGestionMatos
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            string nom = NomTextBox.Text;
-            string adresse = AdresseTextBox.Text;
-            string ville = Ville.Text;
-            string CP = CPTextBox.Text;
-            string telephone = TelTextBox.Text;
+            if (Page_de_connexion.admin_int < 1)
+            {
+                MessageBox.Show("Vous n'avez pas les autorisations pour faire cette action !");
+            }
+            else
+            {
+                string nom = NomTextBox.Text;
+                string adresse = AdresseTextBox.Text;
+                string ville = Ville.Text;
+                string CP = CPTextBox.Text;
+                string telephone = TelTextBox.Text;
 
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
-            con.Open();
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
+                con.Open();
 
-            string req = "INSERT INTO Client (Nom, Adresse, Ville, Code_Postal, Telephone) VALUES ('" + nom + "','" + adresse + "','" + ville + "','" + CP + "', '" + telephone + "')";
-            SqlCommand cmd = new SqlCommand(req, con);
-            cmd.ExecuteNonQuery();
+                string req = "INSERT INTO Client (Nom, Adresse, Ville, Code_Postal, Telephone) VALUES ('" + nom + "','" + adresse + "','" + ville + "','" + CP + "', '" + telephone + "')";
+                SqlCommand cmd = new SqlCommand(req, con);
+                cmd.ExecuteNonQuery();
 
-            MessageBox.Show("Le client à bien été ajouté à la liste !");
+                MessageBox.Show("Le client à bien été ajouté à la liste !");
+            }
         }
 
         void remplirlalistview()
@@ -72,50 +79,57 @@ namespace ProjetGestionMatos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
-            con.Open();
-            if (listView1.CheckedItems.Count == 0)
+            if(Page_de_connexion.admin_int < 1)
             {
-                MessageBox.Show("Vous devez d'abord selectionner un client !");
+                MessageBox.Show("Vous n'avez pas les autorisations pour faire cette action !");
             }
             else
             {
-                if (listView1.CheckedItems.Count == 1)
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
+                con.Open();
+                if (listView1.CheckedItems.Count == 0)
                 {
-                    DialogResult reponse1 = MessageBox.Show("Voulez-vous vraiment supprimer le client selectionné ?", "Supprimer le client", MessageBoxButtons.YesNo);
-                    foreach (ListViewItem li in listView1.CheckedItems)
-                    {
-                        if (reponse1 == DialogResult.Yes)
-                        {
-                            string id_client;
-                            string nom_client;
-                            nom_client = li.SubItems[0].Text;
-                            id_client = li.SubItems[5].Text;
-                            string req = "DELETE FROM Client WHERE ID_client = " + id_client + "";
-                            SqlCommand cmd = new SqlCommand(req, con);
-                            cmd.ExecuteNonQuery();
-                            MessageBox.Show("Le client " + nom_client + " à bien été supprimé");
-                            li.Remove();
-                        }
-                    }
+                    MessageBox.Show("Vous devez d'abord selectionner un client !");
                 }
                 else
                 {
-                    DialogResult reponse = MessageBox.Show("Voulez-vous vraiment supprimer les clients selectionnés ?", "Supprimer le client", MessageBoxButtons.YesNo);
-                    foreach (ListViewItem li in listView1.CheckedItems)
+                    if (listView1.CheckedItems.Count == 1)
                     {
-                        if (reponse == DialogResult.Yes)
+                        DialogResult reponse1 = MessageBox.Show("Voulez-vous vraiment supprimer le client selectionné ?", "Supprimer le client", MessageBoxButtons.YesNo);
+                        foreach (ListViewItem li in listView1.CheckedItems)
                         {
-                            string id_client;
-                            string nom_client;
-                            nom_client = li.SubItems[0].Text;
-                            id_client = li.SubItems[5].Text;
-                            string req = "DELETE FROM Client WHERE ID_client = " + id_client + "";
-                            SqlCommand cmd = new SqlCommand(req, con);
-                            cmd.ExecuteNonQuery();
-                            MessageBox.Show("Le client " + nom_client + " à bien été supprimé");
-                            li.Remove();
+                            if (reponse1 == DialogResult.Yes)
+                            {
+                                string id_client;
+                                string nom_client;
+                                nom_client = li.SubItems[0].Text;
+                                id_client = li.SubItems[5].Text;
+                                string req = "DELETE FROM Client WHERE ID_client = " + id_client + "";
+                                SqlCommand cmd = new SqlCommand(req, con);
+                                cmd.ExecuteNonQuery();
+                                MessageBox.Show("Le client " + nom_client + " à bien été supprimé");
+                                li.Remove();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        DialogResult reponse = MessageBox.Show("Voulez-vous vraiment supprimer les clients selectionnés ?", "Supprimer le client", MessageBoxButtons.YesNo);
+                        foreach (ListViewItem li in listView1.CheckedItems)
+                        {
+                            if (reponse == DialogResult.Yes)
+                            {
+                                string id_client;
+                                string nom_client;
+                                nom_client = li.SubItems[0].Text;
+                                id_client = li.SubItems[5].Text;
+                                string req = "DELETE FROM Client WHERE ID_client = " + id_client + "";
+                                SqlCommand cmd = new SqlCommand(req, con);
+                                cmd.ExecuteNonQuery();
+                                MessageBox.Show("Le client " + nom_client + " à bien été supprimé");
+                                li.Remove();
+                            }
                         }
                     }
                 }
@@ -137,6 +151,13 @@ namespace ProjetGestionMatos
         private void Liste_des_clients_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            modif_client modif = new modif_client();
+            modif.Show();
+            this.Close();
         }
     }
 }

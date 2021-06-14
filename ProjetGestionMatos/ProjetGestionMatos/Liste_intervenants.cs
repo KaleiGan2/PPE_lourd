@@ -13,6 +13,7 @@ namespace ProjetGestionMatos
 {
     public partial class Liste_intervenants : Form
     {
+        public static int id_itvn;
         public Liste_intervenants()
         {
             InitializeComponent();
@@ -134,6 +135,7 @@ namespace ProjetGestionMatos
                                 read2.Read();
                                 if ((int)read2[0] != 0)
                                 {
+                                    read2.Close();
                                     MessageBox.Show("" + nom_intervenant + " " + prenom_intervenant + " a une intervention programmé, supprimez-la avant de supprimer l'intervenant !");
                                 }
                                 else
@@ -150,6 +152,274 @@ namespace ProjetGestionMatos
                     }
                 }
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
+            con.Open();
+            if (listView1.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Vous devez d'abord selectionner un intervenant !");
+            }
+            else
+            {
+                if (listView1.CheckedItems.Count == 1)
+                {
+                    DialogResult reponse1 = MessageBox.Show("Voulez-vous inscrire définitivement cet intervenant ?", "Accepter l'intervenant", MessageBoxButtons.YesNo);
+                    foreach (ListViewItem li in listView1.CheckedItems)
+                    {
+                        if (reponse1 == DialogResult.Yes)
+                        {
+                            int verif_intervenant;
+                            int id_intervenant;
+                            string nom_intervenant;
+                            string prenom_intervenant;
+
+                            nom_intervenant = li.SubItems[0].Text;
+                            prenom_intervenant = li.SubItems[1].Text;
+                            verif_intervenant = Convert.ToInt32(li.SubItems[4].Text);
+                            id_intervenant = Convert.ToInt32(li.SubItems[6].Text);
+                            if (verif_intervenant == 1)
+                            {
+                                MessageBox.Show("" + nom_intervenant + " " + prenom_intervenant + " est déjà vérifié !");
+                            }
+                            else
+                            {
+                                string req2 = "UPDATE Intervenant SET Verification = 1 WHERE ID_intervenant = " + id_intervenant + "";
+                                SqlCommand cmd2 = new SqlCommand(req2, con);
+                                cmd2.ExecuteNonQuery();
+                                MessageBox.Show("L'intervenant " + nom_intervenant + " " + prenom_intervenant + " est désormais vérifié ! Il peut se connecter a l'application");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    DialogResult reponse = MessageBox.Show("Voulez-vous inscrire définitivement les intervenants sélectionnées ?", "Accepter les nouveaux intervenants", MessageBoxButtons.YesNo);
+                    foreach (ListViewItem li in listView1.CheckedItems)
+                    {
+                        {
+                            int verif_intervenant;
+                            int id_intervenant;
+                            string nom_intervenant;
+                            string prenom_intervenant;
+
+                            nom_intervenant = li.SubItems[0].Text;
+                            prenom_intervenant = li.SubItems[1].Text;
+                            verif_intervenant = Convert.ToInt32(li.SubItems[4].Text);
+                            id_intervenant = Convert.ToInt32(li.SubItems[6].Text);
+                            if (verif_intervenant == 1)
+                            {
+                                MessageBox.Show("" + nom_intervenant + " " + prenom_intervenant + " est déjà vérifié !");
+                            }
+                            else
+                            {
+                                string req2 = "UPDATE Intervenant SET Verification = 1 WHERE ID_intervenant = " + id_intervenant + "";
+                                SqlCommand cmd2 = new SqlCommand(req2, con);
+                                cmd2.ExecuteNonQuery();
+                                MessageBox.Show("L'intervenant " + nom_intervenant + " " + prenom_intervenant + " est désormais vérifié ! Il peut se connecter a l'application");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
+            con.Open();
+            if (listView1.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Vous devez d'abord selectionner un intervenant !");
+            }
+            else
+            {
+                if (listView1.CheckedItems.Count == 1)
+                {
+                    DialogResult reponse1 = MessageBox.Show("Vous allez faire passer cet intervenant en administrateur, voulez-vous continuer ?", "Donner le statut administrateur", MessageBoxButtons.YesNo);
+                    foreach (ListViewItem li in listView1.CheckedItems)
+                    {
+                        if (reponse1 == DialogResult.Yes)
+                        {
+                            int admin_intervenant;
+                            int id_intervenant;
+                            string nom_intervenant;
+                            string prenom_intervenant;
+
+                            nom_intervenant = li.SubItems[0].Text;
+                            prenom_intervenant = li.SubItems[1].Text;
+                            admin_intervenant = Convert.ToInt32(li.SubItems[5].Text);
+                            id_intervenant = Convert.ToInt32(li.SubItems[6].Text);
+                            if (Page_de_connexion.admin_int != 2)
+                            {
+                                MessageBox.Show("Vous n'avez pas les autorisations pour faire cette action !");
+                            }
+                            else
+                            {
+                                if(admin_intervenant == 1)
+                                {
+                                    MessageBox.Show("" + nom_intervenant + " " + prenom_intervenant + " est déjà administrateur de l'application !");
+                                }
+                                else
+                                {
+                                    string req2 = "UPDATE Intervenant SET Administrateur = 1 WHERE ID_intervenant = " + id_intervenant + "";
+                                    SqlCommand cmd2 = new SqlCommand(req2, con);
+                                    cmd2.ExecuteNonQuery();
+                                    MessageBox.Show("L'intervenant " + nom_intervenant + " " + prenom_intervenant + " est désormais administrateur !");
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    DialogResult reponse = MessageBox.Show("Vous allez faire passer ces intervenant en administrateur, voulez - vous continuer ? ", "Donner le statut administrateur", MessageBoxButtons.YesNo);
+                    foreach (ListViewItem li in listView1.CheckedItems)
+                    {
+                        if (reponse == DialogResult.Yes)
+                        {
+                            int admin_intervenant;
+                            int id_intervenant;
+                            string nom_intervenant;
+                            string prenom_intervenant;
+
+                            nom_intervenant = li.SubItems[0].Text;
+                            prenom_intervenant = li.SubItems[1].Text;
+                            admin_intervenant = Convert.ToInt32(li.SubItems[5].Text);
+                            id_intervenant = Convert.ToInt32(li.SubItems[6].Text);
+                            if (Page_de_connexion.admin_int != 2)
+                            {
+                                MessageBox.Show("Vous n'avez pas les autorisations pour faire cette action !");
+                            }
+                            else
+                            {
+                                if (admin_intervenant == 1)
+                                {
+                                    MessageBox.Show("" + nom_intervenant + " " + prenom_intervenant + " est déjà administrateur de l'application !");
+                                }
+                                else
+                                {
+                                    string req2 = "UPDATE Intervenant SET Administrateur = 1 WHERE ID_intervenant = " + id_intervenant + "";
+                                    SqlCommand cmd2 = new SqlCommand(req2, con);
+                                    cmd2.ExecuteNonQuery();
+                                    MessageBox.Show("L'intervenant " + nom_intervenant + " " + prenom_intervenant + " est désormais administrateur !");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
+            con.Open();
+            if (listView1.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Vous devez d'abord selectionner un intervenant !");
+            }
+            else
+            {
+                if (listView1.CheckedItems.Count == 1)
+                {
+                    DialogResult reponse1 = MessageBox.Show("Vous allez faire passer cet intervenant en statut 'intervenant', voulez-vous continuer ?", "Donner le statut intervenant", MessageBoxButtons.YesNo);
+                    foreach (ListViewItem li in listView1.CheckedItems)
+                    {
+                        if (reponse1 == DialogResult.Yes)
+                        {
+                            int admin_intervenant;
+                            int id_intervenant;
+                            string nom_intervenant;
+                            string prenom_intervenant;
+
+                            nom_intervenant = li.SubItems[0].Text;
+                            prenom_intervenant = li.SubItems[1].Text;
+                            admin_intervenant = Convert.ToInt32(li.SubItems[5].Text);
+                            id_intervenant = Convert.ToInt32(li.SubItems[6].Text);
+                            if (id_intervenant == Page_de_connexion.id_int)
+                            {
+                                MessageBox.Show("Vous ne pouvez pas modifier votre rôle vous-même !");
+                            }
+                            else
+                            {
+                                if (Page_de_connexion.admin_int == 0)
+                                {
+                                    MessageBox.Show("Vous n'avez pas les autorisations pour faire cette action !");
+                                }
+                                else
+                                {
+                                    if (Page_de_connexion.admin_int <= admin_intervenant)
+                                    {
+                                        MessageBox.Show("" + nom_intervenant + " " + prenom_intervenant + " à un role supérieur ou égale au vôtre !");
+                                    }
+                                    else
+                                    {
+                                        string req2 = "UPDATE Intervenant SET Administrateur = 0 WHERE ID_intervenant = " + id_intervenant + "";
+                                        SqlCommand cmd2 = new SqlCommand(req2, con);
+                                        cmd2.ExecuteNonQuery();
+                                        MessageBox.Show("L'intervenant " + nom_intervenant + " " + prenom_intervenant + " est désormais simple intervenant !");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    DialogResult reponse = MessageBox.Show("Vous allez faire passer ces intervenants en 'intervenant', voulez - vous continuer ? ", "Donner le statut intervenant", MessageBoxButtons.YesNo);
+                    foreach (ListViewItem li in listView1.CheckedItems)
+                    {
+                        if (reponse == DialogResult.Yes)
+                        {
+                            int admin_intervenant;
+                            int id_intervenant;
+                            string nom_intervenant;
+                            string prenom_intervenant;
+
+                            nom_intervenant = li.SubItems[0].Text;
+                            prenom_intervenant = li.SubItems[1].Text;
+                            admin_intervenant = Convert.ToInt32(li.SubItems[5].Text);
+                            id_intervenant = Convert.ToInt32(li.SubItems[6].Text);
+                            if (id_intervenant == Page_de_connexion.id_int)
+                            {
+                                MessageBox.Show("Vous ne pouvez pas modfiier votre rôle vous-même !");
+                            }
+                            else
+                            {
+                                if (Page_de_connexion.admin_int == 0)
+                                {
+                                    MessageBox.Show("Vous n'avez pas les autorisations pour faire cette action !");
+                                }
+                                else
+                                {
+                                    if (Page_de_connexion.admin_int <= admin_intervenant)
+                                    {
+                                        MessageBox.Show("" + nom_intervenant + " " + prenom_intervenant + " à un role supérieur ou égale au vôtre !");
+                                    }
+                                    else
+                                    {
+                                        string req2 = "UPDATE Intervenant SET Administrateur = 0 WHERE ID_intervenant = " + id_intervenant + "";
+                                        SqlCommand cmd2 = new SqlCommand(req2, con);
+                                        cmd2.ExecuteNonQuery();
+                                        MessageBox.Show("L'intervenant " + nom_intervenant + " " + prenom_intervenant + " est désormais simple intervenant !");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

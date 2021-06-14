@@ -14,7 +14,14 @@ namespace ProjetGestionMatos
     public partial class Programmer_une_intervention : Form
         
     {
-       // Modifier_intervention Modif_itv;
+        public static string statut_itvn;
+        public static string date_itvn;
+        public static string nom_itn;
+        public static string materiel_itvn;
+        public static string client_itvn;
+        public static int id_itvn;
+        public static int id_itv;
+        public static string prenom_itn;
         public Programmer_une_intervention()
         {
             InitializeComponent();
@@ -22,6 +29,8 @@ namespace ProjetGestionMatos
             remplirClient();
             remplirlistView();
             listview_color();
+            listView1.View = View.Details;
+            listView1.FullRowSelect = true;
         }
 
         void remplirMateriel()
@@ -38,7 +47,6 @@ namespace ProjetGestionMatos
             {
                 comboBox1.Items.Add(read[0].ToString());
             }
-
         }
 
         void remplirClient()
@@ -65,7 +73,7 @@ namespace ProjetGestionMatos
             con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
             con.Open();
 
-            string req1 = "SELECT i.Statut, CONVERT(varchar,i.date_itv, 3) AS Date, m.Nom, c.Nom, i.ID_itv FROM Intervention i, Materiel m, Client c WHERE m.ID_mat = i.ID_mat AND i.ID_client = c.ID_client"; // Prend les informations de l'invtervention dans la base de données
+            string req1 = "SELECT i.Statut, CONVERT(varchar,i.date_itv, 3) AS Date, m.Nom, c.Nom, i.ID_itv, n.Nom, n.Prenom FROM Intervention i, Materiel m, Client c, Intervenant n WHERE m.ID_mat = i.ID_mat AND i.ID_client = c.ID_client AND n.ID_intervenant = i.ID_intervenant"; // Prend les informations de l'invtervention dans la base de données
             SqlCommand cmd = new SqlCommand(req1, con);
             SqlDataReader read = cmd.ExecuteReader();
 
@@ -131,7 +139,7 @@ namespace ProjetGestionMatos
                                 id_client = Convert.ToInt32(id_c[0]);
                                 id_c.Close();
 
-                                string req2 = "INSERT INTO Intervention (Statut, date_itv, ID_mat, ID_client) VALUES ('" + statut + "','" + date + "','" + id_materiel + "','" + id_client + "')";
+                                string req2 = "INSERT INTO Intervention (Statut, date_itv, ID_intervenant, ID_mat, ID_client) VALUES ('" + statut + "','" + date + "','" + Page_de_connexion.id_int + "','" + id_materiel + "','" + id_client + "')";
                                 SqlCommand cmd2 = new SqlCommand(req2, con);
                                 cmd2.ExecuteNonQuery();
 
@@ -181,30 +189,38 @@ namespace ProjetGestionMatos
                 foreach (ListViewItem li in listView1.Items)
                 {
                         string id = li.SubItems[4].Text;
+                        string statut = li.SubItems[0].Text;
                         string req = "SELECT CONVERT(varchar,date_itv, 3) AS Date FROM Intervention WHERE id_itv = " + id + "";
                         SqlCommand reader = new SqlCommand(req, con);
                         SqlDataReader read = reader.ExecuteReader();
                     
                         if (read.Read())
                         {
+                            
                             for (int i2 = 0; i2 < listView1.Items.Count; i2++)
                             {
-                                string date = read[0].ToString();
-
-                                DateTime madate = DateTime.Parse(date);
-                                DateTime ladate = DateTime.Today.Date;
-
-                                if (madate < ladate)
+                                if(statut == "Urgente")
                                 {
-                                    li.SubItems[i2].BackColor = Color.Red;
+                                    li.SubItems[i2].BackColor = Color.DarkRed;
                                 }
-                                else if (madate == ladate)
+                                else
                                 {
-                                    li.SubItems[i2].BackColor = Color.Yellow;
-                                }
-                                else if (madate > ladate)
-                                {
-                                    li.SubItems[i2].BackColor = Color.LightGreen;
+                                    string date = read[0].ToString();
+
+                                    DateTime madate = DateTime.Parse(date);
+                                    DateTime ladate = DateTime.Today.Date;
+                                    if (madate < ladate)
+                                    {
+                                        li.SubItems[i2].BackColor = Color.Red;
+                                    }
+                                    else if (madate == ladate)
+                                    {
+                                        li.SubItems[i2].BackColor = Color.Yellow;
+                                    }
+                                    else if (madate > ladate)
+                                    {
+                                        li.SubItems[i2].BackColor = Color.LightGreen;
+                                    }
                                 }
                             }
                         read.Close();
@@ -257,6 +273,35 @@ namespace ProjetGestionMatos
         }
 
         private void button4_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
+            con.Open();
+            
+            if (listView1.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Vous devez d'abord sélectionner une intervention !");
+            }
+            else if (listView1.CheckedItems.Count == 1)
+                {
+                    foreach (ListViewItem li in listView1.CheckedItems)
+                    {
+                    statut_itvn = li.SubItems[0].Text;
+                    date_itvn = li.SubItems[1].Text;
+                    materiel_itvn = li.SubItems[2].Text;
+                    client_itvn = li.SubItems[3].Text;
+                    id_itvn = Convert.ToInt32(li.SubItems[4].Text);
+                    nom_itn = li.SubItems[5].Text;
+                    prenom_itn = li.SubItems[6].Text;
+
+                    Form modifier_intervention = new Modifier_intervention();
+                    modifier_intervention.Show();
+                    this.Close();
+                }
+                }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
 
         }

@@ -47,6 +47,8 @@ namespace ProjetGestionMatos
             this.Materiel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Client = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ID_inter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Nom_intervenant = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Prenom_intervenant = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -123,7 +125,9 @@ namespace ProjetGestionMatos
             this.Date,
             this.Materiel,
             this.Client,
-            this.ID_inter});
+            this.ID_inter,
+            this.Nom_intervenant,
+            this.Prenom_intervenant});
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView1.HideSelection = false;
             listViewItem1.StateImageIndex = 0;
@@ -170,6 +174,14 @@ namespace ProjetGestionMatos
             this.ID_inter.Text = "ID_Intervention";
             this.ID_inter.Width = 94;
             // 
+            // Nom_intervenant
+            // 
+            this.Nom_intervenant.Text = "Nom de l\'intervenant";
+            // 
+            // Prenom_intervenant
+            // 
+            this.Prenom_intervenant.Text = "Prenom de l\'intervenant";
+            // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -196,6 +208,7 @@ namespace ProjetGestionMatos
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(182, 20);
             this.dateTimePicker1.TabIndex = 16;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // comboBox3
             // 
@@ -292,5 +305,7 @@ namespace ProjetGestionMatos
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ColumnHeader ID_inter;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ColumnHeader Nom_intervenant;
+        private System.Windows.Forms.ColumnHeader Prenom_intervenant;
     }
 }

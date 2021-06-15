@@ -13,6 +13,12 @@ namespace ProjetGestionMatos
 {
     public partial class Liste_des_clients : Form
     {
+        public static string nom_client;
+        public static string adresse_client;
+        public static string telephone_client;
+        public static string ville_client;
+        public static string cp_client;
+        public static int id_du_client;
         public Liste_des_clients()
         {
             InitializeComponent();
@@ -155,9 +161,34 @@ namespace ProjetGestionMatos
 
         private void button3_Click(object sender, EventArgs e)
         {
-            modif_client modif = new modif_client();
-            modif.Show();
-            this.Close();
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
+            con.Open();
+
+            if (listView1.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Vous devez d'abord sélectionner un client !");
+            }
+            else if (listView1.CheckedItems.Count == 1)
+            {
+                foreach (ListViewItem li in listView1.CheckedItems)
+                {
+                    nom_client = li.SubItems[0].Text;
+                    adresse_client = li.SubItems[1].Text;
+                    ville_client = li.SubItems[2].Text;
+                    cp_client = li.SubItems[3].Text;
+                    telephone_client = li.SubItems[4].Text;
+                    id_du_client = Convert.ToInt32(li.SubItems[5].Text);
+
+                    modif_client modif = new modif_client();
+                    modif.Show();
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vous ne pouvez pas modifier plusieurs clients en même temps !");
+            }
         }
     }
 }

@@ -56,6 +56,7 @@ namespace ProjetGestionMatos
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -244,13 +245,23 @@ namespace ProjetGestionMatos
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(476, 260);
+            this.button4.Location = new System.Drawing.Point(417, 260);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(199, 22);
+            this.button4.Size = new System.Drawing.Size(142, 22);
             this.button4.TabIndex = 21;
             this.button4.Text = "Modifier l\'intervention";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(583, 260);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(164, 22);
+            this.button3.TabIndex = 22;
+            this.button3.Text = "Valider l\'intervention";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Programmer_une_intervention
             // 
@@ -258,6 +269,7 @@ namespace ProjetGestionMatos
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(792, 348);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
@@ -307,5 +319,6 @@ namespace ProjetGestionMatos
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ColumnHeader Nom_intervenant;
         private System.Windows.Forms.ColumnHeader Prenom_intervenant;
+        private System.Windows.Forms.Button button3;
     }
 }

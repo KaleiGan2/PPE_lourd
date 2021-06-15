@@ -225,6 +225,7 @@
             this.label8.Size = new System.Drawing.Size(98, 20);
             this.label8.TabIndex = 17;
             this.label8.Text = "Votre ville :";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // textBox7
             // 
@@ -232,6 +233,7 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(227, 20);
             this.textBox7.TabIndex = 18;
+            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // groupBox2
             // 
@@ -245,10 +247,11 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(30, 74);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(278, 309);
+            this.groupBox2.Size = new System.Drawing.Size(278, 306);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Informations Intervenant";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // Inscription
             // 

@@ -73,7 +73,7 @@ namespace ProjetGestionMatos
             con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
             con.Open();
 
-            string req1 = "SELECT i.Statut, CONVERT(varchar,i.date_itv, 3) AS Date, m.Nom, c.Nom, i.ID_itv, n.Nom, n.Prenom FROM Intervention i, Materiel m, Client c, Intervenant n WHERE m.ID_mat = i.ID_mat AND i.ID_client = c.ID_client AND n.ID_intervenant = i.ID_intervenant"; // Prend les informations de l'invtervention dans la base de données
+            string req1 = "SELECT i.Statut, CONVERT(varchar,i.date_itv, 3) AS Date, m.Nom, c.Nom, i.ID_itv, n.Nom, n.Prenom FROM Intervention i, Materiel m, Client c, Intervenant n WHERE m.ID_mat = i.ID_mat AND i.ID_client = c.ID_client AND n.ID_intervenant = i.ID_intervenant AND i.validation = 0"; // Prend les informations de l'invtervention dans la base de données
             SqlCommand cmd = new SqlCommand(req1, con);
             SqlDataReader read = cmd.ExecuteReader();
 
@@ -304,6 +304,52 @@ namespace ProjetGestionMatos
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = @"Server=PC-IBRAHIMA\SQLEXPRESS; database=PPE; integrated security=true";
+            con.Open();
+
+            if (listView1.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Vous devez d'abord sélectionner une intervention !");
+            }
+            else if (listView1.CheckedItems.Count == 1)
+            {
+                DialogResult reponse = MessageBox.Show("L'intervention selectionné sera validé, voulez-vous continuer ?", "Valider l'intervention", MessageBoxButtons.YesNo);
+                foreach (ListViewItem li in listView1.CheckedItems)
+                {
+                    if (reponse == DialogResult.Yes)
+                    {
+                        string id_itv;
+                        id_itv = li.SubItems[4].Text;
+                        string req = "UPDATE Intervention SET Validation = 1 WHERE ID_itv = " + id_itv + "";
+                        SqlCommand cmd = new SqlCommand(req, con);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("L'intervention " + id_itv + " à bien été validé !");
+                        li.Remove();
+                    }
+                }
+            }
+            else
+            {
+                DialogResult reponse = MessageBox.Show("Les interventions selectionnés seront validés, voulez-vous continuer ?", "Valider les interventions", MessageBoxButtons.YesNo);
+                foreach (ListViewItem li in listView1.CheckedItems)
+                {
+                    if (reponse == DialogResult.Yes)
+                    {
+                        string id_itv;
+                        id_itv = li.SubItems[4].Text;
+                        string req = "UPDATE Intervention SET Validation = 1 WHERE ID_itv = " + id_itv + "";
+                        SqlCommand cmd = new SqlCommand(req, con);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("L'intervention " + id_itv + " à bien été validé !");
+                        li.Remove();
+                    }
+                }
+            }
         }
     }
 }

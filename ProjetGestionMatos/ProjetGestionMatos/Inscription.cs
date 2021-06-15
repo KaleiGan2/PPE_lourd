@@ -38,33 +38,40 @@ namespace ProjetGestionMatos
             string Ville = textBox7.Text;
             DateTime date = DateTime.Today;
 
-            if (MDP != Confirm_MDP)
+            if(Nom == "" || Prenom == "" || Adresse == "" || Ville == "" || Login == "" || MDP == "")
             {
-                erreur.Text = "Les mots de passes ne correspondent pas !";
-                erreur.Visible = true;
+                MessageBox.Show("Vous devez remplir toutes vos informations !");
             }
             else
             {
-                string req = "SELECT COUNT(*) FROM Intervenant WHERE LOGIN = '" + Login + "';";
-                SqlCommand cmd = new SqlCommand(req, con);
-                SqlDataReader read = cmd.ExecuteReader();
-                read.Read();
-
-                if ((int) read[0] == 1)
+                if (MDP != Confirm_MDP)
                 {
-                    erreur.Text = "Ce login est déjà utilisé par un autre intervenant !";
+                    erreur.Text = "Les mots de passes ne correspondent pas !";
                     erreur.Visible = true;
                 }
                 else
                 {
-                    read.Close();
-                    string req2 = "INSERT INTO Intervenant (Nom, Prenom, Adresse, Ville, Date_anciennete, LOGIN, Password) VALUES ('" + Nom + "','" + Prenom + "','" + Adresse + "','" + Ville + "','" + date + "','" + Login + "','" + MDP + "')";
-                    SqlCommand cmd2 = new SqlCommand(req2, con);
-                    cmd2.ExecuteNonQuery();
+                    string req = "SELECT COUNT(*) FROM Intervenant WHERE LOGIN = '" + Login + "';";
+                    SqlCommand cmd = new SqlCommand(req, con);
+                    SqlDataReader read = cmd.ExecuteReader();
+                    read.Read();
 
-                    erreur.Text = "Votre demande d'inscription à bien été effectué !";
-                    erreur.Visible = true;
-                    MessageBox.Show("Votre inscription à bien été transmise, vous devez maintenant attendre sa validation par un administrateur !");
+                    if ((int)read[0] == 1)
+                    {
+                        erreur.Text = "Ce login est déjà utilisé par un autre intervenant !";
+                        erreur.Visible = true;
+                    }
+                    else
+                    {
+                        read.Close();
+                        string req2 = "INSERT INTO Intervenant (Nom, Prenom, Adresse, Ville, Date_anciennete, LOGIN, Password) VALUES ('" + Nom + "','" + Prenom + "','" + Adresse + "','" + Ville + "','" + date + "','" + Login + "','" + MDP + "')";
+                        SqlCommand cmd2 = new SqlCommand(req2, con);
+                        cmd2.ExecuteNonQuery();
+
+                        erreur.Text = "Votre demande d'inscription à bien été effectué !";
+                        erreur.Visible = true;
+                        MessageBox.Show("Votre inscription à bien été transmise, vous devez maintenant attendre sa validation par un administrateur !");
+                    }
                 }
             }
         }
@@ -84,6 +91,26 @@ namespace ProjetGestionMatos
             this.Close();
             Page_de_connexion page = new Page_de_connexion();
             page.Show();
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
